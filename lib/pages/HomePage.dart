@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -56,23 +55,28 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-Widget _buildUserListItem(DocumentSnapshot document){
-Map<String,dynamic> data=document.data()! as Map<String,dynamic>;
+
+  Widget _buildUserListItem(DocumentSnapshot document) {
+    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
 //display all the users except the current
-if(_auth.currentUser!.email != data['email']){
-  return ListTile(
-    title: Text(data['email']),
-    onTap: (){
-      Navigator.push(context, MaterialPageRoute(builder: (context)  => chatpage(
-        receiverEmail: data['email'],
-        receiverId: data['uid'],
-      ),),);
-    },
-  );
-}
-else {
-  return Container();
-}
-}
+    if (_auth.currentUser!.email != data['email']) {
+      return ListTile(
+        title: Text(data['email']),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => chatpage(
+                receiverEmail: data['email'],
+                receiverId: data['uid'],
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Container();
+    }
+  }
 }
 // list of users except for the current logged in user
