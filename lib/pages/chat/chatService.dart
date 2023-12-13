@@ -7,16 +7,16 @@ class ChatService extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   //sending messages
+ Future<void> sendMessage( String receiverId, String message) async {
+   // current user info
 
-    // current user info
+   // writing a message
 
-    // writing a message
-
-    // a chatroom for current user and other selected one
+   // a chatroom for current user and other selected one
 
    // adding messages to the database
 
-
+ }
   // receiving messages
 
 
