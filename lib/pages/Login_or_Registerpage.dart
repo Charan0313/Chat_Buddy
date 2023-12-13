@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:chat_buddy/pages/LoginPage.dart';
 import 'package:chat_buddy/pages/RegisterPage.dart';
@@ -14,13 +13,11 @@ class LoginOrRegister extends StatefulWidget {
 class _LoginOrRegisterState extends State<LoginOrRegister> {
   bool isLogin = true;
 
-
   void togglePage() {
     setState(() {
       isLogin = !isLogin;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

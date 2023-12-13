@@ -1,16 +1,32 @@
 import 'package:chat_buddy/components/My_button.dart';
 import 'package:chat_buddy/components/Text_field.dart';
+import 'package:chat_buddy/pages/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key , required this.OnTap});
- final void Function()? OnTap;
+  LoginPage({Key? key, required this.OnTap}) : super(key: key);
+  final void Function()? OnTap;
   final EmailController = TextEditingController();
   final PassController = TextEditingController();
 
-  void Login(){
-
+  void login(BuildContext context) async {
+    // Get the auth service
+    final authService = Provider.of<AuthService>(context, listen: false);
+    try {
+      await authService.signinwithEmailPassword(
+        EmailController.text,
+        PassController.text,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Must enter details'),
+        ),
+      );
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +38,6 @@ class LoginPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  //logo
                   const SizedBox(
                     height: 85,
                   ),
@@ -33,7 +48,6 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  //msg
                   const Text(
                     'Welcome back',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
@@ -41,36 +55,35 @@ class LoginPage extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-                  //email
                   MyTextField(
-                      hinttext: ('Email'),
-                      unknowntext: false,
-                      controller: EmailController),
-                  //password
+                    hinttext: ('Email'),
+                    unknowntext: false,
+                    controller: EmailController,
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
                   MyTextField(
-                      hinttext: ('Password'),
-                      unknowntext: false,
-                      controller: PassController),
-                  //login in button
+                    hinttext: ('Password'),
+                    unknowntext: true,
+                    controller: PassController,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  MyButton(ontap: Login, text: "Login"),
+                  MyButton(ontap: () => login(context), text: "Login"),
                   SizedBox(height: 20,),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('Not a Member ? ',),
                       GestureDetector(
                         onTap: OnTap,
                         child: const Text('Register now',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600
-                        ),),
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600
+                          ),),
                       )
                     ],
                   )
