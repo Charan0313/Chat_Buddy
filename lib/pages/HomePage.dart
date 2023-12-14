@@ -24,7 +24,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[300],
         appBar: AppBar(
+          backgroundColor: Colors.grey[700],
           title: Text('HomePage'),
           centerTitle: true,
           actions: [
@@ -61,7 +63,9 @@ class _HomePageState extends State<HomePage> {
 //display all the users except the current
     if (_auth.currentUser!.email != data['email']) {
       return ListTile(
-        title: Text(data['email']),
+        title: Text(data['email'],style: TextStyle(
+          fontSize: 17,
+        ),),
         onTap: () {
           Navigator.push(
             context,

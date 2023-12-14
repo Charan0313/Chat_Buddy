@@ -32,9 +32,11 @@ class _chatpageState extends State<chatpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text(widget.receiverEmail),
         centerTitle: true,
+        backgroundColor: Colors.grey[800],
       ),
       body: Column(
         children: [
