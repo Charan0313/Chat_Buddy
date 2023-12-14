@@ -1,3 +1,4 @@
+import 'package:chat_buddy/components/ChatBubble.dart';
 import 'package:chat_buddy/components/Text_field.dart';
 import 'package:chat_buddy/pages/chat/chatService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,6 +42,7 @@ class _chatpageState extends State<chatpage> {
             child: _buildMessageList(),
           ),
           _buildMessageInput(),
+          const SizedBox(height: 25,),
         ],
       ),
     );
@@ -89,8 +91,9 @@ class _chatpageState extends State<chatpage> {
                   ? MainAxisAlignment.end
                   : MainAxisAlignment.start,
           children: [
-            Text(data['senderEmail']),
-            Text(data['message']),
+            // Text(data['senderEmail']),
+            SizedBox(height: 7,),
+            ChatBubble(message: data['message']),
           ],
         ),
       ),
@@ -99,23 +102,26 @@ class _chatpageState extends State<chatpage> {
 
   //build message Input
   Widget _buildMessageInput() {
-    return Row(
-      children: [
-        Expanded(
-          child: MyTextField(
-            controller: _messageController,
-            hinttext: 'Enter message',
-            unknowntext: false,
-            // obscureText: false,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Row(
+        children: [
+          Expanded(
+            child: MyTextField(
+              controller: _messageController,
+              hinttext: 'Enter message',
+              unknowntext: false,
+              // obscureText: false,
+            ),
           ),
-        ),
-        IconButton(
-            onPressed: SendMessages,
-            icon: Icon(
-              Icons.arrow_upward,
-              size: 30,
-            ))
-      ],
+          IconButton(
+              onPressed: SendMessages,
+              icon: Icon(
+                Icons.arrow_upward,
+                size: 30,
+              ))
+        ],
+      ),
     );
   }
 }
